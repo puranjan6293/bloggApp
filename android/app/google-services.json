@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "542538745864",
+    "project_id": "pagefly-d1a72",
+    "storage_bucket": "pagefly-d1a72.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542538745864:android:fbb6bea81303f43d6429bd",
+        "android_client_info": {
+          "package_name": "com.example.pagefly"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf9RzRpbFWPNDvhRhGOWGJoAOar9EQXsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
