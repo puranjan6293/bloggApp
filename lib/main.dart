@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         visualDensity: VisualDensity.standard,
       ),
-      title: 'pagefly',
+      title: 'MuBlogger',
       debugShowCheckedModeBanner: false,
       routes: AppRoutes.routes,
       home: StreamBuilder<User?>(

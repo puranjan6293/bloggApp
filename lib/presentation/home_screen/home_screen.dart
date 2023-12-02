@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pagefly/model/blog_model.dart';
 import 'package:pagefly/presentation/blog_screen/blog_screen.dart';
 import 'package:pagefly/presentation/chatagory_screen/chatagory_screen.dart';
+import 'package:pagefly/presentation/home_screen/widgets/app_sceleton.dart';
 import 'package:pagefly/services/blog_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../drawer_menu_draweritem/drawer_menu_draweritem.dart';
 import '../home_screen/widgets/home_item_widget.dart';
@@ -28,6 +30,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<BlogModel> _blogModel = [];
 
+  //! Set to track liked posts
+  // Set<String> likedPosts = <String>{};
+
+  //!by using shared preference
+  late SharedPreferences _prefs;
+  late String _prefsKey;
+
   final BlogService _blogService = BlogService();
   final User? user = FirebaseAuth.instance.currentUser;
 
@@ -39,9 +48,17 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  //! initshared preference function
+  Future<void> _initSharedPreference() async {
+    _prefs = await SharedPreferences.getInstance();
+    _prefsKey = 'liked_posts_${user?.uid}';
+    setState(() {});
+  }
+
   @override
   void initState() {
     _loadBlogs();
+    _initSharedPreference();
     super.initState();
   }
 
@@ -77,110 +94,53 @@ class _HomeScreenState extends State<HomeScreen> {
           // width: double.maxFinite,
           padding: getPadding(top: 8, bottom: 8),
           child: _blogModel.isEmpty
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
+              ? const MySkeletonLoadingWidget()
               : Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Align(
                       alignment: Alignment.centerRight,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Padding(
-                          padding: getPadding(left: 24),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              CustomButton(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ChatagoryScreen(tag: "Science"),
-                                    ),
-                                  );
-                                },
-                                height: getVerticalSize(40),
-                                width: getHorizontalSize(83),
-                                text: "Science",
-                                margin: getMargin(bottom: 1),
-                                variant: ButtonVariant.FillBlack9005e,
-                                shape: ButtonShape.CircleBorder20,
-                                padding: ButtonPadding.PaddingAll9,
-                                fontStyle:
-                                    ButtonFontStyle.PoppinsRegular14Black900,
-                              ),
-                              CustomButton(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ChatagoryScreen(tag: "Coding"),
-                                    ),
-                                  );
-                                },
-                                height: getVerticalSize(40),
-                                width: getHorizontalSize(83),
-                                text: "Coding",
-                                margin: getMargin(left: 12, bottom: 1),
-                                variant: ButtonVariant.FillBlack9005e,
-                                shape: ButtonShape.CircleBorder20,
-                                padding: ButtonPadding.PaddingAll9,
-                                fontStyle:
-                                    ButtonFontStyle.PoppinsRegular14Black900,
-                              ),
-                              CustomButton(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ChatagoryScreen(tag: "Global"),
-                                    ),
-                                  );
-                                },
-                                height: getVerticalSize(40),
-                                width: getHorizontalSize(83),
-                                text: "Global",
-                                margin: getMargin(left: 12, bottom: 1),
-                                variant: ButtonVariant.FillBlack9005e,
-                                shape: ButtonShape.CircleBorder20,
-                                padding: ButtonPadding.PaddingAll9,
-                                fontStyle:
-                                    ButtonFontStyle.PoppinsRegular14Black900,
-                              ),
-                              CustomButton(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ChatagoryScreen(
-                                              tag: "Politics"),
-                                    ),
-                                  );
-                                },
-                                height: getVerticalSize(40),
-                                width: getHorizontalSize(83),
-                                text: "Politics",
-                                margin: getMargin(left: 12, bottom: 1),
-                                variant: ButtonVariant.FillBlack9005e,
-                                shape: ButtonShape.CircleBorder20,
-                                padding: ButtonPadding.PaddingAll9,
-                                fontStyle:
-                                    ButtonFontStyle.PoppinsRegular14Black900,
-                              ),
-                              //!Trending blogs
-                              CustomImageView(
-                                imagePath: ImageConstant.imgBackground,
-                                height: getVerticalSize(40),
-                                width: getHorizontalSize(24),
-                                margin: getMargin(left: 12, top: 1),
-                              ),
-                            ],
+                      child: Padding(
+                        padding: getPadding(left: 19),
+                        child: SizedBox(
+                          height: 40,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _blogModel
+                                .map((blog) => blog.tag)
+                                .toSet()
+                                .toList()
+                                .length,
+                            itemBuilder: ((context, index) {
+                              final tags = _blogModel
+                                  .map((blog) => blog.tag)
+                                  .toSet()
+                                  .toList();
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5.0),
+                                child: CustomButton(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ChatagoryScreen(tag: tags[index]),
+                                      ),
+                                    );
+                                  },
+                                  height: getVerticalSize(40),
+                                  width: getHorizontalSize(83),
+                                  text: tags[index],
+                                  margin: getMargin(bottom: 1),
+                                  variant: ButtonVariant.FillBlack9005e,
+                                  shape: ButtonShape.CircleBorder20,
+                                  padding: ButtonPadding.PaddingAll9,
+                                  fontStyle:
+                                      ButtonFontStyle.PoppinsRegular14Black900,
+                                ),
+                              );
+                            }),
                           ),
                         ),
                       ),
@@ -217,7 +177,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
 
-                    //! have to add data from database
                     Padding(
                       padding: getPadding(left: 20, top: 19),
                       child: ListView.separated(
@@ -237,8 +196,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         itemCount: _blogModel.length,
                         itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
+                          return InkWell(
+                            onTap: () async {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -254,6 +213,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                               );
+                              //!like logic by using shared preference
+                              if (_prefs.getBool(
+                                      _prefsKey + _blogModel[index].uid) ??
+                                  true) {
+                                setState(() {
+                                  _blogModel[index].likes =
+                                      _blogModel[index].likes! + 1;
+                                  _blogService.updateBlog(_blogModel[index]);
+
+                                  _prefs.setBool(
+                                      _prefsKey + _blogModel[index].uid, false);
+                                });
+                              }
                             },
                             child: HomeItemWidget(
                               title: _blogModel[index].title,

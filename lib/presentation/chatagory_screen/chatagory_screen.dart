@@ -136,7 +136,7 @@ class _ChatagoryScreenState extends State<ChatagoryScreen> {
                   },
                   itemCount: _blogModel.length,
                   itemBuilder: (context, index) {
-                    return GestureDetector(
+                    return InkWell(
                       onTap: () {
                         Navigator.push(
                           context,

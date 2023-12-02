@@ -44,7 +44,7 @@ class HomeItemWidget extends StatelessWidget {
                   top: 6,
                 ),
                 child: Text(
-                  title,
+                  title.length > 30 ? "${title.substring(0, 30)}..." : title,
                   overflow: TextOverflow.fade,
                   textAlign: TextAlign.left,
                   style: AppStyle.txtPoppinsSemiBold16,
@@ -91,55 +91,73 @@ class HomeItemWidget extends StatelessWidget {
                     ),
                     Padding(
                       padding: getPadding(
-                        left: 12,
-                        bottom: 1,
+                          left: MediaQuery.of(context).size.width * 0.3),
+                      child: Wrap(
+                        children: [
+                          Text(
+                            likes.toString(),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.left,
+                            style: AppStyle.txtPoppinsMedium12,
+                          ),
+                          CustomImageView(
+                            color: ColorConstant.black90087,
+                            svgPath: ImageConstant.views,
+                            height: getVerticalSize(
+                              17,
+                            ),
+                            width: getHorizontalSize(
+                              13,
+                            ),
+                            margin: getMargin(
+                              // left: 64,
+                              bottom: 3,
+                            ),
+                          ),
+                        ],
                       ),
-                      child: Text(
-                        likes.toString(),
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                        style: AppStyle.txtPoppinsMedium12,
-                      ),
-                    ),
-                    CustomImageView(
-                      svgPath: ImageConstant.imgBookmark,
-                      height: getVerticalSize(
-                        17,
-                      ),
-                      width: getHorizontalSize(
-                        13,
-                      ),
-                      margin: getMargin(
-                        left: 64,
-                        bottom: 2,
-                      ),
-                    ),
+                    )
                   ],
                 ),
               ),
             ],
           ),
         ),
-        CustomImageView(
-          fit: BoxFit.cover,
-          imagePath: ImageConstant.imgBlogthumbnail80x80,
-          url: imgLink,
-          height: getSize(
-            80,
-          ),
-          width: getSize(
-            80,
-          ),
-          radius: BorderRadius.circular(
-            getHorizontalSize(
-              3,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            CustomImageView(
+              fit: BoxFit.cover,
+              imagePath: ImageConstant.imgBlogthumbnail80x80,
+              url: imgLink,
+              height: getSize(
+                80,
+              ),
+              width: getSize(
+                80,
+              ),
+              radius: BorderRadius.circular(
+                getHorizontalSize(
+                  3,
+                ),
+              ),
+              margin: getMargin(
+                left: 15,
+                bottom: 1,
+                right: 1,
+              ),
             ),
-          ),
-          margin: getMargin(
-            left: 15,
-            bottom: 1,
-            right: 1,
-          ),
+            //read more text
+            Padding(
+              padding: const EdgeInsets.only(right: 5.0),
+              child: Text(
+                "Read More",
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.left,
+                style: AppStyle.txtPoppinsMedium12ReadMore,
+              ),
+            ),
+          ],
         ),
       ],
     );

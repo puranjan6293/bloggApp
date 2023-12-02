@@ -1,6 +1,8 @@
 class ImageConstant {
   static String imgGoogle1 = 'assets/images/img_google1.png';
   static String imgMob = 'assets/images/mob.png';
+  static String imgMobNoBg = 'assets/images/mobnobg.png';
+  static String views = 'assets/images/views.svg';
 
   static String imgArrowleft = 'assets/images/img_arrowleft.svg';
 

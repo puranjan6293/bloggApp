@@ -60,12 +60,12 @@ class _SignInScreenState extends State<SignInScreen> {
               // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CustomImageView(
-                  imagePath: ImageConstant.imgDhiwiseblackmonogram,
+                  imagePath: ImageConstant.imgMobNoBg,
                   height: getSize(
-                    59,
+                    69,
                   ),
                   width: getSize(
-                    59,
+                    69,
                   ),
                 ),
                 Padding(

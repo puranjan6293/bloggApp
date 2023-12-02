@@ -1,4 +1,4 @@
-package com.example.pagefly
+package puranjan.mublogger.com
 
 import io.flutter.embedding.android.FlutterActivity
 

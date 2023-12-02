@@ -134,7 +134,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   },
                   itemCount: _blogModel.length,
                   itemBuilder: (context, index) {
-                    return GestureDetector(
+                    return InkWell(
                       onTap: () {
                         Navigator.push(
                           context,

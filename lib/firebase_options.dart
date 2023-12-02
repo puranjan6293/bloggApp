@@ -60,7 +60,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDf9RzRpbFWPNDvhRhGOWGJoAOar9EQXsY',
-    appId: '1:542538745864:android:fbb6bea81303f43d6429bd',
+    appId: '1:542538745864:android:583f37ef1e2a15176429bd',
     messagingSenderId: '542538745864',
     projectId: 'pagefly-d1a72',
     storageBucket: 'pagefly-d1a72.appspot.com',

@@ -21,7 +21,7 @@ class DrawerMenuDraweritem extends StatelessWidget {
                 padding: getPadding(left: 1, top: 13),
                 child: Row(children: [
                   CustomImageView(
-                    imagePath: ImageConstant.imgMob,
+                    imagePath: ImageConstant.imgMobNoBg,
                     height: getVerticalSize(62),
                     width: getHorizontalSize(59),
                   ),
@@ -81,26 +81,6 @@ class DrawerMenuDraweritem extends StatelessWidget {
                 child: Padding(
                     padding: getPadding(left: 1, top: 28),
                     child: Text("Your Blogs",
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                        style: AppStyle.txtPoppinsMedium18))),
-            InkWell(
-                onTap: () {
-                  onTapTxtTermAndCondition(context);
-                },
-                child: Padding(
-                    padding: getPadding(left: 1, top: 25),
-                    child: Text("Terms and conditions",
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                        style: AppStyle.txtPoppinsMedium18))),
-            InkWell(
-                onTap: () {
-                  onTapTxtNewStory(context);
-                },
-                child: Padding(
-                    padding: getPadding(left: 1, top: 28),
-                    child: Text("Privacy policy",
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
                         style: AppStyle.txtPoppinsMedium18))),

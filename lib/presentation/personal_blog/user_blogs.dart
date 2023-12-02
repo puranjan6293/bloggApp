@@ -128,7 +128,7 @@ class _UserBlogsState extends State<UserBlogs> {
                   },
                   itemCount: _blogModel.length,
                   itemBuilder: (context, index) {
-                    return GestureDetector(
+                    return InkWell(
                       onLongPress: () {
                         showDialog(
                           context: context,

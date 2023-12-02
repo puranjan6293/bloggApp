@@ -28,7 +28,7 @@ class _CuraousalWidgetState extends State<CuraousalWidget> {
       ),
       itemCount: widget.blogmodel.length,
       itemBuilder: (BuildContext context, int index, int realIndex) {
-        return GestureDetector(
+        return InkWell(
           onTap: () {
             Navigator.push(
                 context,
@@ -81,7 +81,9 @@ class _CuraousalWidgetState extends State<CuraousalWidget> {
                       horizontal: 20.0,
                     ),
                     child: Text(
-                      widget.blogmodel[index].title,
+                      widget.blogmodel[index].title.length > 50
+                          ? "${widget.blogmodel[index].title.substring(0, 50)}..."
+                          : widget.blogmodel[index].title,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20.0,

@@ -64,12 +64,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
               // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CustomImageView(
-                  imagePath: ImageConstant.imgDhiwiseblackmonogram,
+                  imagePath: ImageConstant.imgMobNoBg,
                   height: getSize(
-                    59,
+                    69,
                   ),
                   width: getSize(
-                    59,
+                    69,
                   ),
                 ),
                 Padding(

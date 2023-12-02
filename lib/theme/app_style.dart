@@ -82,6 +82,14 @@ class AppStyle {
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w500,
   );
+  static TextStyle txtPoppinsMedium12ReadMore = TextStyle(
+    color: Colors.blue,
+    fontSize: getFontSize(
+      10,
+    ),
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w500,
+  );
 
   static TextStyle txtPoppinsSemiBold16Black900 = TextStyle(
     color: ColorConstant.black900,
