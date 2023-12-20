@@ -1,15 +1,25 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:pagefly/core/app_export.dart';
+import 'package:pagefly/presentation/home_screen/home_screen.dart';
+import 'package:pagefly/presentation/sign_in_screen/widgets/textfield_widget.dart';
+import 'package:pagefly/presentation/sign_up_screen/sign_up_screen.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+import '../../core/app_export.dart';
+import 'widgets/button_widget.dart';
+
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _emailcontroller = TextEditingController();
+  final TextEditingController _passwordcontroller = TextEditingController();
+  //! firebase authentication method
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -23,7 +33,7 @@ class _SignInScreenState extends State<SignInScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      // ignore: use_build_context_synchronously
+
       Navigator.pushNamed(context, AppRoutes.homeScreen);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -45,169 +55,84 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: ColorConstant.whiteA700,
-        body: SingleChildScrollView(
-          child: Container(
-            width: double.maxFinite,
-            padding: getPadding(
-              left: 27,
-              top: 26,
-              right: 27,
-              bottom: 26,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CustomImageView(
-                  imagePath: ImageConstant.imgMobNoBg,
-                  height: getSize(
-                    69,
-                  ),
-                  width: getSize(
-                    69,
-                  ),
-                ),
-                Padding(
-                  padding: getPadding(
-                    top: 36,
-                  ),
-                  child: Text(
-                    "Welcome back.",
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.left,
-                    style: AppStyle.txtPlantagenetCherokee32,
-                  ),
-                ),
-                Container(
-                  margin: getMargin(
-                    left: 1,
-                    top: 34,
-                    right: 2,
-                  ),
-                  padding: getPadding(
-                    left: 15,
-                    top: 8,
-                    right: 15,
-                    bottom: 8,
-                  ),
-                  decoration: AppDecoration.outlineBlack900.copyWith(
-                    borderRadius: BorderRadiusStyle.circleBorder20,
-                  ),
-                  child: TextField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      hintText: "Email",
-                      hintStyle: AppStyle.txtPoppinsRegular14Gray40001,
-                      border: InputBorder.none,
-                    ),
-                    style: AppStyle.txtPoppinsSemiBold16,
-                  ),
-                ),
-                Container(
-                  margin: getMargin(
-                    left: 1,
-                    top: 10,
-                    right: 2,
-                  ),
-                  padding: getPadding(
-                    left: 15,
-                    top: 8,
-                    right: 15,
-                    bottom: 8,
-                  ),
-                  decoration: AppDecoration.outlineBlack900.copyWith(
-                    borderRadius: BorderRadiusStyle.circleBorder20,
-                  ),
-                  child: TextField(
-                    controller: _passwordController,
-                    style: AppStyle.txtPoppinsSemiBold16,
-                    cursorColor: ColorConstant.black900,
-                    decoration: InputDecoration(
-                      hintText: "Password",
-                      hintStyle: AppStyle.txtPoppinsRegular14Gray40001,
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-                //signin button
-                Padding(
-                  padding: getPadding(
-                    top: 20,
-                  ),
-                  child: GestureDetector(
-                    onTap: () {
-                      signIn();
-                    },
-                    child: Container(
-                      width: getSize(
-                        315,
-                      ),
-                      height: getSize(
-                        50,
-                      ),
-                      decoration: AppDecoration.fillWhiteA700.copyWith(
-                        borderRadius: BorderRadiusStyle.circleBorder20,
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Sign in",
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: AppStyle.txtPoppinsBold20,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                Align(
-                  alignment: Alignment.centerLeft,
+        // backgroundColor: const Color(0xffb3c7dc),
+        body: Stack(
+          children: [
+            Image.asset("assets/backgroundd.png",
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Card(
+                  color: Colors.transparent.withOpacity(0.1),
+                  elevation: 8,
                   child: Padding(
-                    padding: getPadding(
-                      left: 36,
-                      top: 36,
-                      right: 5,
-                      bottom: 5,
-                    ),
-                    child: Row(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Padding(
-                          padding: getPadding(
-                            bottom: 1,
-                          ),
-                          child: Text(
-                            "Don’t have an account? ",
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
-                            style: AppStyle.txtPoppinsRegular14,
+                        const Text(
+                          "Login",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 69, 162, 238),
                           ),
                         ),
                         Padding(
-                          padding: getPadding(
-                            left: 7,
-                            top: 1,
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFieldWidget(
+                            controller: _emailcontroller,
+                            name: "Email",
+                            label: "Email",
                           ),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, AppRoutes.signUpScreen);
-                            },
-                            child: Text(
-                              "Sign up.",
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtPoppinsRegular14LightblueA200,
+                        ),
+                        // const SizedBox(height: 20),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFieldWidget(
+                            controller: _passwordcontroller,
+                            name: "Password",
+                            label: "Password",
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Wrap(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ButtonWidget(
+                                text: "Login",
+                                onPressed: () {
+                                  signIn();
+                                },
+                              ),
                             ),
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ButtonWidget(
+                                text: "SignUp",
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SignUpPage()),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

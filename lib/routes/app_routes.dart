@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pagefly/presentation/home_screen/home_screen.dart';
-import 'package:pagefly/presentation/sign_in_screen/sign_in_screen.dart';
-import 'package:pagefly/presentation/sign_up_screen/sign_up_screen.dart';
 
 import 'package:pagefly/presentation/search_topics_screen/search_topics_screen.dart';
 
@@ -32,8 +30,6 @@ class AppRoutes {
 
   static Map<String, WidgetBuilder> routes = {
     homeScreen: (context) => const HomeScreen(),
-    signInScreen: (context) => const SignInScreen(),
-    signUpScreen: (context) => const SignUpScreen(),
     searchTopicsScreen: (context) => SearchTopicsScreen(),
     exploreScreen: (context) => const ExploreScreen(),
     termsAndConditionsScreen: (context) => const TermsAndConditionsScreen(),

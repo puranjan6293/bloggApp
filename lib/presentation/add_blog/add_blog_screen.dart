@@ -70,7 +70,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                 width: 80,
                 height: 43,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(10),
                   color: Colors.blue.shade300,
                 ),
                 child: Center(

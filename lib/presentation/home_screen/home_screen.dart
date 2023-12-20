@@ -180,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: getPadding(left: 20, top: 19),
                       child: ListView.separated(
-                        physics: const AlwaysScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         separatorBuilder: (context, index) {
                           return Padding(

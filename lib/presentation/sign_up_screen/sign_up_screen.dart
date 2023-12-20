@@ -1,15 +1,21 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:pagefly/core/app_export.dart';
+import 'package:pagefly/presentation/sign_in_screen/sign_in_screen.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+import '../../core/app_export.dart';
+import '../sign_in_screen/widgets/button_widget.dart';
+import '../sign_in_screen/widgets/textfield_widget.dart';
+
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _emailController = TextEditingController();
 
   final TextEditingController _passwordController = TextEditingController();
@@ -25,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      // ignore: use_build_context_synchronously
+
       Navigator.pushNamed(context, AppRoutes.homeScreen);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -49,168 +55,83 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: ColorConstant.whiteA700,
-        body: SingleChildScrollView(
-          child: Container(
-            width: double.maxFinite,
-            padding: getPadding(
-              left: 27,
-              top: 26,
-              right: 27,
-              bottom: 26,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CustomImageView(
-                  imagePath: ImageConstant.imgMobNoBg,
-                  height: getSize(
-                    69,
-                  ),
-                  width: getSize(
-                    69,
-                  ),
-                ),
-                Padding(
-                  padding: getPadding(
-                    top: 36,
-                  ),
-                  child: Text(
-                    "Resistor now!",
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.left,
-                    style: AppStyle.txtPlantagenetCherokee32,
-                  ),
-                ),
-                Container(
-                  margin: getMargin(
-                    left: 1,
-                    top: 34,
-                    right: 2,
-                  ),
-                  padding: getPadding(
-                    left: 15,
-                    top: 8,
-                    right: 15,
-                    bottom: 8,
-                  ),
-                  decoration: AppDecoration.outlineBlack900.copyWith(
-                    borderRadius: BorderRadiusStyle.circleBorder20,
-                  ),
-                  child: TextField(
-                    style: AppStyle.txtPoppinsSemiBold16,
-                    cursorColor: ColorConstant.black900,
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      hintText: "Email",
-                      hintStyle: AppStyle.txtPoppinsRegular14Gray40001,
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: getMargin(
-                    left: 1,
-                    top: 10,
-                    right: 2,
-                  ),
-                  padding: getPadding(
-                    left: 15,
-                    top: 8,
-                    right: 15,
-                    bottom: 8,
-                  ),
-                  decoration: AppDecoration.outlineBlack900.copyWith(
-                    borderRadius: BorderRadiusStyle.circleBorder20,
-                  ),
-                  child: TextField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      hintText: "Password",
-                      hintStyle: AppStyle.txtPoppinsRegular14Gray40001,
-                      border: InputBorder.none,
-                    ),
-                    style: AppStyle.txtPoppinsSemiBold16,
-                    cursorColor: ColorConstant.black900,
-                  ),
-                ),
-                Padding(
-                  padding: getPadding(
-                    top: 20,
-                  ),
-                  child: GestureDetector(
-                    onTap: () {
-                      signUp();
-                    },
-                    child: Container(
-                      width: getSize(
-                        315,
-                      ),
-                      height: getSize(
-                        50,
-                      ),
-                      decoration: AppDecoration.fillWhiteA700.copyWith(
-                        borderRadius: BorderRadiusStyle.circleBorder20,
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Sign Up",
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: AppStyle.txtPoppinsBold20,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
+        // backgroundColor: const Color(0xffb3c7dc),
+        body: Stack(
+          children: [
+            Image.asset("assets/backgroundd.png",
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Card(
+                  color: Colors.transparent.withOpacity(0.1),
+                  elevation: 8,
                   child: Padding(
-                    padding: getPadding(
-                      left: 36,
-                      top: 36,
-                      right: 5,
-                      bottom: 5,
-                    ),
-                    child: Row(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Padding(
-                          padding: getPadding(
-                            bottom: 1,
-                          ),
-                          child: Text(
-                            "Already have an account? ",
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
-                            style: AppStyle.txtPoppinsRegular14,
+                        const Text(
+                          "SignUp",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 69, 162, 238),
                           ),
                         ),
                         Padding(
-                          padding: getPadding(
-                            left: 7,
-                            top: 1,
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFieldWidget(
+                            controller: _emailController,
+                            name: "Email",
+                            label: "Email",
                           ),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, AppRoutes.signInScreen);
-                            },
-                            child: Text(
-                              "Sign In.",
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtPoppinsRegular14LightblueA200,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFieldWidget(
+                            controller: _passwordController,
+                            name: "Password",
+                            label: "Password",
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Wrap(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ButtonWidget(
+                                text: "Login",
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginPage()),
+                                  );
+                                },
+                              ),
                             ),
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ButtonWidget(
+                                text: "SignUp",
+                                onPressed: () {
+                                  signUp();
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
